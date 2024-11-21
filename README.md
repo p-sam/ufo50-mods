@@ -25,4 +25,5 @@ Locate and open the game `data.win` file with UndertaleModTool, then run the `Pa
 
 | Name | Description |
 | --- | --- |
+| 6P-BigBellRace | BigBellRace 2-6 players multiplayer |
 | Quickstart | Skips cracktro and "play forever" screen |

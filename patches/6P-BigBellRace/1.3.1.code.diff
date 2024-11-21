@@ -1,0 +1,699 @@
+--- original/gml_GlobalScript_scr28_Checkpoints.gml
++++ patched/gml_GlobalScript_scr28_Checkpoints.gml
+@@ -101,13 +101,29 @@
+                     {
+                         dad.p1InGoal = true;
+                     }
+-                    else
++                    if (num == 1)
+                     {
+                         dad.p2InGoal = true;
+                     }
++                    if (num == 2)
++                    {
++                        dad.p3InGoal = true;
++                    }
++                    if (num == 3)
++                    {
++                        dad.p4InGoal = true;
++                    }
++                    if (num == 4)
++                    {
++                        dad.p5InGoal = true;
++                    }
++                    if (num == 5)
++                    {
++                        dad.p6InGoal = true;
++                    }
+                     with (dad)
+                     {
+-                        if ((!multip && p1InGoal) || (multip && p1InGoal && p2InGoal))
++                        if ((!multip && p1InGoal) || (global.numPlayers == 2 && p1InGoal && p2InGoal) || (global.numPlayers == 3 && p1InGoal && p2InGoal && p3InGoal) || (global.numPlayers == 4 && p1InGoal && p2InGoal && p3InGoal && p4InGoal) || (global.numPlayers == 5 && p1InGoal && p2InGoal && p3InGoal && p4InGoal && p5InGoal) || (global.numPlayers == 6 && p1InGoal && p2InGoal && p3InGoal && p4InGoal && p5InGoal && p6InGoal))
+                         {
+                             scrBGM(bgm28_results);
+                         }
+--- original/gml_GlobalScript_scr28_Meta.gml
++++ patched/gml_GlobalScript_scr28_Meta.gml
+@@ -7,7 +7,7 @@
+     global.mGameYear[arg0] = 1985.8;
+     global.mGameGenre[arg0] = 64;
+     global.mGameRealtime[arg0] = true;
+-    global.mGameMenuStyle[arg0] = 2;
++    global.mGameMenuStyle[arg0] = 222;
+     global.mGameIntroStyle[arg0] = 0;
+     global.mGameLogoStyle[arg0] = 0;
+     global.mGameMultiplayer[arg0] = true;
+--- original/gml_Object_o28_Egg_Create_0.gml
++++ patched/gml_Object_o28_Egg_Create_0.gml
+@@ -1,5 +1,6 @@
+ state = 0;
+ t = 0;
++human = false;
+ image_speed = 0;
+ vspeed = -5;
+ gravity = 0.04;
+--- original/gml_Object_o28_Mas_Create_0.gml
++++ patched/gml_Object_o28_Mas_Create_0.gml
+@@ -11,23 +11,58 @@
+ __view_set(e__VW.YView, 0, 224);
+ winnerChar = 0;
+ multip = false;
+-if (global.numPlayers == 2)
++navi[1] = 9;
++navi[2] = 9;
++navi[3] = 9;
++navi[4] = 9;
++navi[5] = 9;
++if (global.numPlayers >= 2)
+ {
+     multip = true;
+ }
+ navi[0] = 0;
++readies = 0;
+ if (multip)
+ {
+     navi[1] = 1;
++    if (global.numPlayers >= 3)
++    {
++        navi[2] = 2;
+ }
++    if (global.numPlayers >= 4)
++    {
++        navi[3] = 3;
++    }
++    if (global.numPlayers >= 5)
++    {
++        navi[4] = 4;
++    }
++    if (global.numPlayers >= 6)
++    {
++        navi[5] = 5;
++    }
++}
+ else
+ {
+     navi[1] = 9;
++    navi[2] = 9;
++    navi[3] = 9;
++    navi[4] = 9;
++    navi[5] = 9;
+ }
+ naviSel[0] = 0;
+ naviSel[1] = 0;
++naviSel[2] = 0;
++naviSel[3] = 0;
++naviSel[4] = 0;
++naviSel[5] = 0;
+ playerSel[0] = 0;
+ playerSel[1] = 1;
++playerSel[2] = 2;
++playerSel[3] = 3;
++playerSel[4] = 4;
++playerSel[5] = 5;
++playerSel[6] = 6;
+ cb = 0;
+ rCount = -1;
+ uCount = 0;
+@@ -50,6 +85,10 @@
+ goalPos = 0;
+ p1InGoal = false;
+ p2InGoal = false;
++p3InGoal = false;
++p4InGoal = false;
++p5InGoal = false;
++p6InGoal = false;
+ dsRank = ds_grid_create(2, 6);
+ dsScore = ds_grid_create(3, 6);
+ dsScorePrev = ds_grid_create(2, 6);
+@@ -110,6 +149,14 @@
+ lapP2TimeStamp = 0;
+ raceP1TimeStamp = 0;
+ raceP2TimeStamp = 0;
++lapP3TimeStamp = 0;
++raceP3TimeStamp = 0;
++lapP4TimeStamp = 0;
++raceP4TimeStamp = 0;
++lapP5TimeStamp = 0;
++raceP5TimeStamp = 0;
++lapP6TimeStamp = 0;
++raceP6TimeStamp = 0;
+ kills[0] = 0;
+ kills[1] = 0;
+ scrLoadGame();
+--- original/gml_Object_o28_Mas_Draw_0.gml
++++ patched/gml_Object_o28_Mas_Draw_0.gml
+@@ -24,7 +24,51 @@
+         {
+             draw_sprite(s28_Pointer, 3, xv + 104 + (40 * navi[1]), yv + 96);
+         }
++        if (global.numPlayers >= 3)
++        {
++            if (naviSel[2] == 0)
++            {
++                draw_sprite(s28_Pointer, 4, xv + 104 + (40 * navi[2]), yv + 96);
+     }
++            else
++            {
++                draw_sprite(s28_Pointer, 5, xv + 104 + (40 * navi[2]), yv + 96);
++            }
++        }
++        if (global.numPlayers >= 4)
++        {
++            if (naviSel[3] == 0)
++            {
++                draw_sprite(s28_Pointer, 6, xv + 104 + (40 * navi[3]), yv + 96);
++            }
++            else
++            {
++                draw_sprite(s28_Pointer, 7, xv + 104 + (40 * navi[3]), yv + 96);
++            }
++        }
++        if (global.numPlayers >= 5)
++        {
++            if (naviSel[4] == 0)
++            {
++                draw_sprite(s28_Pointer, 8, xv + 104 + (40 * navi[4]), yv + 96);
++            }
++            else
++            {
++                draw_sprite(s28_Pointer, 9, xv + 104 + (40 * navi[4]), yv + 96);
++            }
++        }
++        if (global.numPlayers >= 6)
++        {
++            if (naviSel[5] == 0)
++            {
++                draw_sprite(s28_Pointer, 10, xv + 104 + (40 * navi[5]), yv + 96);
++            }
++            else
++            {
++                draw_sprite(s28_Pointer, 11, xv + 104 + (40 * navi[5]), yv + 96);
++            }
++        }
++    }
+     for (i = 0; i < 6; i++)
+     {
+         ydo = 0;
+@@ -32,6 +76,22 @@
+         {
+             ydo = -8;
+         }
++        if (i == navi[2] && global.numPlayers >= 3)
++        {
++            ydo = -8;
++        }
++        if (i == navi[3] && global.numPlayers >= 4)
++        {
++            ydo = -8;
++        }
++        if (i == navi[4] && global.numPlayers >= 5)
++        {
++            ydo = -8;
++        }
++        if (i == navi[5] && global.numPlayers >= 6)
++        {
++            ydo = -8;
++        }
+         draw_sprite(s28_CharSelect, i, xv + 80 + (40 * i), yv + 128 + ydo);
+     }
+     exit;
+@@ -104,6 +164,22 @@
+             {
+                 draw_sprite(s28_PSign, 1, xv + 184, yv + 91 + (16 * i));
+             }
++            else if (ds_grid_get(dsRank, 0, i).myId == playerSel[2] && global.numPlayers >= 3)
++            {
++                draw_sprite(s28_PSign, 2, xv + 184, yv + 91 + (16 * i));
++            }
++            else if (ds_grid_get(dsRank, 0, i).myId == playerSel[3] && global.numPlayers >= 4)
++            {
++                draw_sprite(s28_PSign, 3, xv + 184, yv + 91 + (16 * i));
++            }
++            else if (ds_grid_get(dsRank, 0, i).myId == playerSel[4] && global.numPlayers >= 5)
++            {
++                draw_sprite(s28_PSign, 4, xv + 184, yv + 91 + (16 * i));
++            }
++            else if (ds_grid_get(dsRank, 0, i).myId == playerSel[5] && global.numPlayers >= 6)
++            {
++                draw_sprite(s28_PSign, 5, xv + 184, yv + 91 + (16 * i));
++            }
+             uScore = pointPos[5 - i];
+             uScore = string_format(uScore, 2, 0);
+             uScore = string_replace(uScore, " ", "0");
+@@ -139,6 +215,22 @@
+             else if (ds_grid_get(dsScore, 0, i) == playerSel[1])
+             {
+                 draw_sprite(s28_PSign, 1, xv + 184, yv + 91 + (16 * i));
++            }
++            else if (ds_grid_get(dsScore, 0, i) == playerSel[2] && global.numPlayers >= 3)
++            {
++                draw_sprite(s28_PSign, 2, xv + 184, yv + 91 + (16 * i));
++            }
++            else if (ds_grid_get(dsScore, 0, i) == playerSel[3] && global.numPlayers >= 4)
++            {
++                draw_sprite(s28_PSign, 3, xv + 184, yv + 91 + (16 * i));
++            }
++            else if (ds_grid_get(dsScore, 0, i) == playerSel[4] && global.numPlayers >= 5)
++            {
++                draw_sprite(s28_PSign, 4, xv + 184, yv + 91 + (16 * i));
++            }
++            else if (ds_grid_get(dsScore, 0, i) == playerSel[5] && global.numPlayers >= 6)
++            {
++                draw_sprite(s28_PSign, 5, xv + 184, yv + 91 + (16 * i));
+             }
+             if (setup == 18)
+             {
+--- /dev/null
++++ patched/gml_Object_o28_Mas_Other_11.gml
+@@ -0,0 +1,222 @@
++var p;
++
++if (global.numPlayers >= 3)
++{
++    p = 2;
++    scrGetInput(p);
++    if (naviSel[p] == 0)
++    {
++        if (pressLeft && global.numPlayers < 6)
++        {
++            scrSfx(sfx_navi00, 40);
++            np = navi[p];
++            while (navi[p] == np || navi[p] == navi[0] || navi[p] == navi[1] || navi[p] == navi[3] || navi[p] == navi[4] || navi[p] == navi[5])
++            {
++                navi[p]--;
++                if (navi[p] < 0)
++                {
++                    navi[p] = 5;
++                }
++            }
++        }
++        else if (pressRight && global.numPlayers < 6)
++        {
++            scrSfx(sfx_navi00, 40);
++            np = navi[p];
++            while (navi[p] == np || navi[p] == navi[0] || navi[p] == navi[1] || navi[p] == navi[3] || navi[p] == navi[4] || navi[p] == navi[5])
++            {
++                navi[p]++;
++                if (navi[p] > 5)
++                {
++                    navi[p] = 0;
++                }
++            }
++        }
++        else if (fire2pressed)
++        {
++            if (naviSel[p] == 0)
++            {
++                readies++;
++                mute(sfx_deselect00);
++                scrSfx(sfx_select01, 45);
++                naviSel[p] = 1;
++            }
++        }
++    }
++    else if (fire1pressed)
++    {
++        if (naviSel[p] == 1)
++        {
++            readies--;
++            mute(sfx_select01);
++            scrSfx(sfx_deselect00, 45);
++            naviSel[p] = 0;
++            t = 0;
++        }
++    }
++}
++if (global.numPlayers >= 4)
++{
++    p = 3;
++    scrGetInput(p);
++    if (naviSel[p] == 0)
++    {
++        if (pressLeft && global.numPlayers < 6)
++        {
++            scrSfx(sfx_navi00, 40);
++            np = navi[p];
++            while (navi[p] == np || navi[p] == navi[0] || navi[p] == navi[1] || navi[p] == navi[2] || navi[p] == navi[4] || navi[p] == navi[5])
++            {
++                navi[p]--;
++                if (navi[p] < 0)
++                {
++                    navi[p] = 5;
++                }
++            }
++        }
++        else if (pressRight && global.numPlayers < 6)
++        {
++            scrSfx(sfx_navi00, 40);
++            np = navi[p];
++            while (navi[p] == np || navi[p] == navi[0] || navi[p] == navi[1] || navi[p] == navi[2] || navi[p] == navi[4] || navi[p] == navi[5])
++            {
++                navi[p]++;
++                if (navi[p] > 5)
++                {
++                    navi[p] = 0;
++                }
++            }
++        }
++        else if (fire2pressed)
++        {
++            if (naviSel[p] == 0)
++            {
++                readies++;
++                mute(sfx_deselect00);
++                scrSfx(sfx_select01, 45);
++                naviSel[p] = 1;
++            }
++        }
++    }
++    else if (fire1pressed)
++    {
++        if (naviSel[p] == 1)
++        {
++            readies--;
++            mute(sfx_select01);
++            scrSfx(sfx_deselect00, 45);
++            naviSel[p] = 0;
++            t = 0;
++        }
++    }
++}
++if (global.numPlayers >= 5)
++{
++    p = 4;
++    scrGetInput(p);
++    if (naviSel[p] == 0)
++    {
++        if (pressLeft && global.numPlayers < 6)
++        {
++            scrSfx(sfx_navi00, 40);
++            np = navi[p];
++            while (navi[p] == np || navi[p] == navi[0] || navi[p] == navi[1] || navi[p] == navi[2] || navi[p] == navi[3] || navi[p] == navi[5])
++            {
++                navi[p]--;
++                if (navi[p] < 0)
++                {
++                    navi[p] = 5;
++                }
++            }
++        }
++        else if (pressRight && global.numPlayers < 6)
++        {
++            scrSfx(sfx_navi00, 40);
++            np = navi[p];
++            while (navi[p] == np || navi[p] == navi[0] || navi[p] == navi[1] || navi[p] == navi[2] || navi[p] == navi[3] || navi[p] == navi[5])
++            {
++                navi[p]++;
++                if (navi[p] > 5)
++                {
++                    navi[p] = 0;
++                }
++            }
++        }
++        else if (fire2pressed)
++        {
++            if (naviSel[p] == 0)
++            {
++                readies++;
++                mute(sfx_deselect00);
++                scrSfx(sfx_select01, 45);
++                naviSel[p] = 1;
++            }
++        }
++    }
++    else if (fire1pressed)
++    {
++        if (naviSel[p] == 1)
++        {
++            readies--;
++            mute(sfx_select01);
++            scrSfx(sfx_deselect00, 45);
++            naviSel[p] = 0;
++            t = 0;
++        }
++    }
++}
++if (global.numPlayers >= 6)
++{
++    p = 5;
++    scrGetInput(p);
++    if (naviSel[p] == 0)
++    {
++        if (pressLeft && global.numPlayers < 6)
++        {
++            scrSfx(sfx_navi00, 40);
++            np = navi[p];
++            while (navi[p] == np || navi[p] == navi[0] || navi[p] == navi[1] || navi[p] == navi[2] || navi[p] == navi[3] || navi[p] == navi[4])
++            {
++                navi[p]--;
++                if (navi[p] < 0)
++                {
++                    navi[p] = 5;
++                }
++            }
++        }
++        else if (pressRight && global.numPlayers < 6)
++        {
++            scrSfx(sfx_navi00, 40);
++            np = navi[p];
++            while (navi[p] == np || navi[p] == navi[0] || navi[p] == navi[1] || navi[p] == navi[2] || navi[p] == navi[3] || navi[p] == navi[4])
++            {
++                navi[p]++;
++                if (navi[p] > 5)
++                {
++                    navi[p] = 0;
++                }
++            }
++        }
++        else if (fire2pressed)
++        {
++            if (naviSel[p] == 0)
++            {
++                readies++;
++                mute(sfx_deselect00);
++                scrSfx(sfx_select01, 45);
++                naviSel[p] = 1;
++            }
++        }
++    }
++    else if (fire1pressed)
++    {
++        if (naviSel[p] == 1)
++        {
++            readies--;
++            mute(sfx_select01);
++            scrSfx(sfx_deselect00, 45);
++            naviSel[p] = 0;
++            t = 0;
++        }
++    }
++}
+--- original/gml_Object_o28_Mas_Step_0.gml
++++ patched/gml_Object_o28_Mas_Step_0.gml
+@@ -9,11 +9,11 @@
+     scrGetInput(0);
+     if (naviSel[0] == 0)
+     {
+-        if (pressLeft)
++        if (pressLeft && global.numPlayers < 6)
+         {
+             scrSfx(sfx_navi00, 40);
+             np = navi[0];
+-            while (navi[0] == np || navi[0] == navi[1])
++            while (np == navi[0] || navi[0] == navi[2] || navi[0] == navi[1] || navi[0] == navi[3] || navi[0] == navi[4] || navi[0] == navi[5])
+             {
+                 navi[0]--;
+                 if (navi[0] < 0)
+@@ -22,11 +22,11 @@
+                 }
+             }
+         }
+-        else if (pressRight)
++        else if (pressRight && global.numPlayers < 6)
+         {
+             scrSfx(sfx_navi00, 40);
+             np = navi[0];
+-            while (navi[0] == np || navi[0] == navi[1])
++            while (np == navi[0] || navi[0] == navi[2] || navi[0] == navi[1] || navi[0] == navi[3] || navi[0] == navi[4] || navi[0] == navi[5])
+             {
+                 navi[0]++;
+                 if (navi[0] > 5)
+@@ -39,6 +39,7 @@
+         {
+             if (naviSel[0] == 0)
+             {
++                readies += 1;
+                 mute(sfx_deselect00);
+                 scrSfx(sfx_select01, 45);
+                 naviSel[0] = 1;
+@@ -49,6 +50,7 @@
+     {
+         if (naviSel[0] == 1)
+         {
++            readies -= 1;
+             mute(sfx_select01);
+             scrSfx(sfx_deselect00, 45);
+             naviSel[0] = 0;
+@@ -69,13 +71,15 @@
+     }
+     if (multip)
+     {
++        event_user(1);
++        scrGetInput(1);
+         if (naviSel[1] == 0)
+         {
+-            if (pressLeft)
++            if (pressLeft && global.numPlayers < 6)
+             {
+                 scrSfx(sfx_navi00, 40);
+                 np = navi[1];
+-                while (navi[1] == np || navi[1] == navi[0])
++                while (np == navi[1] || navi[1] == navi[2] || navi[1] == navi[0] || navi[1] == navi[3] || navi[1] == navi[4] || navi[1] == navi[5])
+                 {
+                     navi[1]--;
+                     if (navi[1] < 0)
+@@ -84,11 +88,11 @@
+                     }
+                 }
+             }
+-            else if (pressRight)
++            else if (pressRight && global.numPlayers < 6)
+             {
+                 scrSfx(sfx_navi00, 40);
+                 np = navi[1];
+-                while (navi[1] == np || navi[1] == navi[0])
++                while (np == navi[1] || navi[1] == navi[2] || navi[1] == navi[0] || navi[1] == navi[3] || navi[1] == navi[4] || navi[1] == navi[5])
+                 {
+                     navi[1]++;
+                     if (navi[1] > 5)
+@@ -101,6 +105,7 @@
+             {
+                 if (naviSel[1] == 0)
+                 {
++                    readies++;
+                     mute(sfx_deselect00);
+                     scrSfx(sfx_select01, 45);
+                     naviSel[1] = 1;
+@@ -111,6 +116,7 @@
+         {
+             if (naviSel[1] == 1)
+             {
++                readies--;
+                 mute(sfx_select01);
+                 scrSfx(sfx_deselect00, 45);
+                 naviSel[1] = 0;
+@@ -120,10 +126,10 @@
+     }
+     if (naviSel[0] == 1)
+     {
+-        if (!multip || naviSel[1] == 1)
+-        {
+             if (t++ >= 45)
+             {
++            if (!multip || readies == global.numPlayers)
++            {
+                 t = 0;
+                 playerSel[0] = navi[0];
+                 playerSel[1] = navi[1];
+@@ -314,6 +320,34 @@
+                 lapP2TimeStamp = current_time;
+                 raceP2TimeStamp = current_time;
+             }
++            else if (global.numPlayers >= 3 && uId == playerSel[2])
++            {
++                racer[rCount].human = true;
++                racer[rCount].num = 2;
++                lapP3TimeStamp = current_time;
++                raceP3TimeStamp = current_time;
++            }
++            else if (global.numPlayers >= 4 && uId == playerSel[3])
++            {
++                racer[rCount].human = true;
++                racer[rCount].num = 3;
++                lapP4TimeStamp = current_time;
++                raceP4TimeStamp = current_time;
++            }
++            else if (global.numPlayers >= 5 && uId == playerSel[4])
++            {
++                racer[rCount].human = true;
++                racer[rCount].num = 4;
++                lapP5TimeStamp = current_time;
++                raceP5TimeStamp = current_time;
++            }
++            else if (global.numPlayers >= 6 && uId == playerSel[5])
++            {
++                racer[rCount].human = true;
++                racer[rCount].num = 5;
++                lapP6TimeStamp = current_time;
++                raceP6TimeStamp = current_time;
++            }
+             else
+             {
+                 racer[rCount].human = false;
+@@ -684,7 +718,7 @@
+         scrExitToTitleScreen();
+     }
+ }
+-else if ((!multip && p1InGoal) || (multip && p1InGoal && p2InGoal))
++else if ((!multip && p1InGoal) || (global.numPlayers == 2 && p1InGoal && p2InGoal) || (global.numPlayers == 3 && p1InGoal && p2InGoal && p3InGoal) || (global.numPlayers == 4 && p1InGoal && p2InGoal && p3InGoal && p4InGoal) || (global.numPlayers == 5 && p1InGoal && p2InGoal && p3InGoal && p4InGoal && p5InGoal) || (global.numPlayers == 6 && p1InGoal && p2InGoal && p3InGoal && p4InGoal && p5InGoal && p6InGoal))
+ {
+     scrGetInput(0);
+     if (fire2pressed)
+--- original/gml_Object_o28_UFO_Draw_0.gml
++++ patched/gml_Object_o28_UFO_Draw_0.gml
+@@ -20,6 +20,10 @@
+         }
+     }
+ }
++if (global.numPlayers > 2 && human)
++{
++    draw_sprite(s28_PSign, num, x, y - 10);
++}
+ event_inherited();
+ if (tPowerup > 0)
+ {
+--- original/gml_Object_oTitleScreens_Other_12.gml
++++ patched/gml_Object_oTitleScreens_Other_12.gml
+@@ -52,6 +52,15 @@
+         menuOption[0] = scrStringManual("title_1player", 0);
+         menuOption[1] = scrStringManual("title_2players", 0);
+     }
++    else if (menuStyle == 222)
++    {
++        menuOption[0] = scrStringManual("title_1player", 0);
++        menuOption[1] = scrStringManual("title_2players", 0);
++        menuOption[2] = "3 PLAYERS";
++        menuOption[3] = "4 PLAYERS";
++        menuOption[4] = "5 PLAYERS";
++        menuOption[5] = "6 PLAYERS";
++    }
+     else if (menuStyle == 3)
+     {
+         menuOption[0] = scrStringManual("title_game_start", 0);
+@@ -407,6 +434,26 @@
+         {
+             global.numPlayers = 2;
+         }
++        if (menuStyle == 222 && menuSel == 1)
++        {
++            global.numPlayers = 2;
++        }
++        if (menuStyle == 222 && menuSel == 2)
++        {
++            global.numPlayers = 3;
++        }
++        if (menuStyle == 222 && menuSel == 3)
++        {
++            global.numPlayers = 4;
++        }
++        if (menuStyle == 222 && menuSel == 4)
++        {
++            global.numPlayers = 5;
++        }
++        if (menuStyle == 222 && menuSel == 5)
++        {
++            global.numPlayers = 6;
++        }
+         if (menuStyle == 4 && menuSel == 1)
+         {
+             global.numPlayers = 2;
