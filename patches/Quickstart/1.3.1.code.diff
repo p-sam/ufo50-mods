@@ -1,0 +1,22 @@
+--- original/gml_GlobalScript_scrInit.gml
++++ patched/gml_GlobalScript_scrInit.gml
+@@ -47,7 +47,7 @@
+     global.paused = false;
+     global.debugOn = false;
+     global.QUICK_PLAY = 0;
+-    global.SKIP_INTRO = false;
++    global.SKIP_INTRO = true;
+     global.PROFILE_PRELOAD = 0;
+     global.EXCLUDE_ABSENT_GAMES = false;
+     global.SKIP_GAME_INTRO = false;
+--- original/gml_Object_oLibrary_Create_0.gml
++++ patched/gml_Object_oLibrary_Create_0.gml
+@@ -37,7 +37,7 @@
+ {
+     if (global.SKIP_INTRO)
+     {
+-        state = STATE_LOGO;
++        state = STATE_INTRO;
+     }
+     else
+     {
