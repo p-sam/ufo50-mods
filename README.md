@@ -23,7 +23,11 @@ Locate and open the game `data.win` file with UndertaleModTool, then run the `Pa
 
 # Patches
 
-| Name | Description |
-| --- | --- |
-| 6P-BigBellRace | BigBellRace 2-6 players multiplayer |
-| Quickstart | Skips cracktro and "play forever" screen |
+| Name | Description | Depends on | Public |
+| --- | --- | --- | --- |
+| 6P-BigBellRace | BigBellRace 2-6 players multiplayer | 6P-Common |✅|
+| Quickstart | Skips cracktro and "play forever" screen ||✅|
+| |
+| 6P-Common | Extends the max number of players and inputs to 6 |||
+
+**Note**: Only scripts marked as `Public` will show by default in the Patcher window, hold SHIFT before it appears to see all (if you know what you're doing)

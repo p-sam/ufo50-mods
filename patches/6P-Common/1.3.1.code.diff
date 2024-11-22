@@ -65,17 +65,32 @@
      {
          for (i = 0; i < global.NUM_INPUTS; i++)
          {
-@@ -61,6 +117,10 @@
+@@ -59,8 +115,10 @@
+             global.joyMap[p][i] = scrReadConfig("P" + string(p + 1) + "joy" + string(i), global.DEFAULT_JOY[p][i]);
+         }
      }
-     global.doubledUpButtons[0] = scrReadConfig("doubledUpButtonsP1", true);
-     global.doubledUpButtons[1] = scrReadConfig("doubledUpButtonsP2", true);
-+    global.doubledUpButtons[2] = scrReadConfig("doubledUpButtonsP3", true);
-+    global.doubledUpButtons[3] = scrReadConfig("doubledUpButtonsP4", true);
-+    global.doubledUpButtons[4] = scrReadConfig("doubledUpButtonsP5", true);
-+    global.doubledUpButtons[5] = scrReadConfig("doubledUpButtonsP6", true);
+-    global.doubledUpButtons[0] = scrReadConfig("doubledUpButtonsP1", true);
+-    global.doubledUpButtons[1] = scrReadConfig("doubledUpButtonsP2", true);
++    for (p = 0; p <= 5; p++)
++    {
++        global.doubledUpButtons[p] = scrReadConfig("doubledUpButtonsP" + string(p + 1), true);
++    }
      gamepad_set_axis_deadzone(0, 0);
      gamepad_set_axis_deadzone(1, 0);
      for (i = 0; i < 223; i++)
+@@ -304,8 +362,10 @@
+     global.JOY_TYPE_SPRITE[n] = sJoyIconsGeneric;
+     global.JOY_TYPE_NAME[n] = scrString("joy_type_generic");
+     n++;
+-    global.joyType[0] = scrReadConfig("joyTypeP1", scrDetectJoyType(0));
+-    global.joyType[1] = scrReadConfig("joyTypeP2", scrDetectJoyType(1));
++    for (p = 0; p <= 5; p++)
++    {
++        global.joyType[p] = scrReadConfig("joyTypeP" + string(p + 1), scrDetectJoyType(p));
++    }
+     for (i = 0; i <= 14; i++)
+     {
+         switch (i)
 --- original/gml_GlobalScript_scrInputClear.gml
 +++ patched/gml_GlobalScript_scrInputClear.gml
 @@ -23,7 +23,7 @@
@@ -139,17 +154,22 @@
      {
          for (i = 0; i < global.NUM_INPUTS; i++)
          {
-@@ -24,6 +24,10 @@
+@@ -22,10 +22,11 @@
+             scrWriteConfig("P" + string(p + 1) + "joy" + string(i), global.joyMap[p][i]);
+         }
      }
-     scrWriteConfig("doubledUpButtonsP1", global.doubledUpButtons[0]);
-     scrWriteConfig("doubledUpButtonsP2", global.doubledUpButtons[1]);
-+    scrWriteConfig("doubledUpButtonsP3", global.doubledUpButtons[2]);
-+    scrWriteConfig("doubledUpButtonsP4", global.doubledUpButtons[3]);
-+    scrWriteConfig("doubledUpButtonsP5", global.doubledUpButtons[4]);
-+    scrWriteConfig("doubledUpButtonsP6", global.doubledUpButtons[5]);
-     scrWriteConfig("joyTypeP1", global.joyType[0]);
-     scrWriteConfig("joyTypeP2", global.joyType[1]);
+-    scrWriteConfig("doubledUpButtonsP1", global.doubledUpButtons[0]);
+-    scrWriteConfig("doubledUpButtonsP2", global.doubledUpButtons[1]);
+-    scrWriteConfig("joyTypeP1", global.joyType[0]);
+-    scrWriteConfig("joyTypeP2", global.joyType[1]);
++    for (p = 0; p <= 5; p++)
++    {
++        scrWriteConfig("doubledUpButtonsP" + string(p + 1), global.doubledUpButtons[p]);
++        scrWriteConfig("joyTypeP" + string(p + 1), global.joyType[p]);
++    }
      scrWriteConfig("defaultLanguage", global.LANG_SAVE_ID[global.defaultLanguage]);
+     scrCloseConfig();
+ }
 --- original/gml_Object_oPauseMenu_Other_12.gml
 +++ patched/gml_Object_oPauseMenu_Other_12.gml
 @@ -8,7 +8,7 @@
@@ -207,7 +227,29 @@
      {
          for (i = 0; i < global.NUM_INPUTS; i++)
          {
-@@ -193,7 +193,7 @@
+@@ -20,8 +20,10 @@
+ }
+ else if (substate == SUB_INIT)
+ {
+-    gamepadConnect[0] = gamepad_is_connected(0);
+-    gamepadConnect[1] = gamepad_is_connected(1);
++    for (i = 0; i <= 5; i++)
++    {
++        gamepadConnect[i] = gamepad_is_connected(i);
++    }
+     drawMenu = true;
+     scrMenuCreate(scrString("menu_head_joypad_config"), menuSel);
+     OP_PLAYER = scrMenuItem(TYPE_PLAYER, scrString("menu_item_player"), currPlayer);
+@@ -60,7 +62,7 @@
+ }
+ else if (substate == SUB_NAV)
+ {
+-    for (i = 0; i <= 1; i++)
++    for (i = 0; i <= 5; i++)
+     {
+         if (gamepadConnect[i] != gamepad_is_connected(i))
+         {
+@@ -193,7 +195,7 @@
                      }
                  }
                  joyMap[currPlayer][currInput] = currJoy;
@@ -216,7 +258,7 @@
                  {
                      for (i = 0; i < global.NUM_INPUTS; i++)
                      {
-@@ -219,14 +219,14 @@
+@@ -219,24 +221,28 @@
  {
      if (stateCounter == 0)
      {
@@ -233,14 +275,21 @@
          {
              for (i = 0; i < global.NUM_INPUTS; i++)
              {
-@@ -235,6 +235,10 @@
+                 global.joyMap[p][i] = joyMap[p][i];
+             }
          }
-         global.doubledUpButtons[0] = true;
-         global.doubledUpButtons[1] = true;
-+        global.doubledUpButtons[2] = true;
-+        global.doubledUpButtons[3] = true;
-+        global.doubledUpButtons[4] = true;
-+        global.doubledUpButtons[5] = true;
-         global.joyType[0] = scrDetectJoyType(0);
-         global.joyType[1] = scrDetectJoyType(1);
+-        global.doubledUpButtons[0] = true;
+-        global.doubledUpButtons[1] = true;
+-        global.joyType[0] = scrDetectJoyType(0);
+-        global.joyType[1] = scrDetectJoyType(1);
++        for (p = 0; p <= 5; p++)
++        {
++            global.doubledUpButtons[p] = true;
++        }
++        for (p = 0; p <= 5; p++)
++        {
++            global.joyType[p] = scrDetectJoyType(p);
++        }
          stateCounter = 1;
+     }
+     if (stateCounter == 1)
