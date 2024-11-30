@@ -27,9 +27,11 @@ Locate and open the game `data.win` file with UndertaleModTool, then run the `Pa
 | --- | --- | --- | --- |
 | 6P-BigBellRace | BigBellRace 2-6 players multiplayer | 6P-Common |✅|
 | GMDebug | (debug) [Browser-based debugging interface](https://debug.gmcloud.org/) | GMJSONRPC |✅|
+| RichPresence | Discord Rich Presence ||✅|
 | Quickstart | Skips cracktro and "play forever" screen ||✅|
 | |
 | 6P-Common | Extends the max number of players and inputs to 6 |||
 | GMJSONRPC | (debug) JSONRPC websocket server |||
 
 **Note**: Only scripts marked as `Public` will show by default in the Patcher window, hold SHIFT before it appears to see all (if you know what you're doing)
+
