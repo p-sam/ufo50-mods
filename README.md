@@ -1,7 +1,7 @@
 UFO 50 Mods
 ===========
 
-[![GitHub](https://img.shields.io/github/license/p-sam/ufo50-mods)](https://github.com/p-sam/ufo50-mods/blob/master/LICENSE)
+[![GitHub](https://img.shields.io/github/license/p-sam/ufo50-mods)](https://github.com/p-sam/ufo50-mods/blob/master/LICENSE) [![UFO 50 Community Discord](https://img.shields.io/badge/Discord-UFO%2050%20Community-7289da?logo=discord&logoColor=white)](https://50games.fans/) [![MOD 50 Community Discord](https://img.shields.io/badge/Discord-MOD%2050-7289da?logo=discord&logoColor=white)](https://discord.com/invite/C4UyQfMBTQ)
 
 Miscellaneous patches for [UFO 50](https://50games.fun/)
 
@@ -35,3 +35,11 @@ Locate and open the game `data.win` file with UndertaleModTool, then run the `Pa
 
 **Note**: Only scripts marked as `Public` will show by default in the Patcher window, hold SHIFT before it appears to see all (if you know what you're doing)
 
+# Contributing
+
+Contributions are welcome! If you find a bug, a new version that's not supported etc., please report it on the [issues page](https://github.com/p-sam/ufo50-mods/issues). 
+
+Please note that I probably will not merge pull requests for additionnal patches. That is because I don't intend to maintain more patches than the ones I use. However,
+do not hesitate to fork this repo and use it as a template for developing your patches/mods if it serves your needs.
+
+Issues and pull requests specific to the patcher folder can go directly here: https://github.com/p-sam/ufo50-patcher
