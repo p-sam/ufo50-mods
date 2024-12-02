@@ -19,10 +19,6 @@ var dataDir = Path.GetDirectoryName(FilePath);
 var codeDir = Path.Join(scriptDir, "code");
 var extDllName = "NekoPresence_x64.dll";
 
-await ApplyCompatibleCodePatch(ufo50Version, scriptDir, new[] {
-    new PatchVersionRange("1.3.1", "1.4.2")
-}, true);
-
 var npExtension = Data.Extensions.ByName("Steamworks");
 UndertaleExtensionFile npFile = null;
 
@@ -56,3 +52,7 @@ DefineRoomGameObject(Data, 0, obj);
 
 await ImportCodeDir(codeDir, true);
 File.Copy(Path.Combine(scriptDir, "res", extDllName), Path.Combine(dataDir, extDllName), true);
+
+await ApplyCompatibleCodePatch(ufo50Version, scriptDir, new[] {
+    new PatchVersionRange("1.3.1", "1.4.2")
+}, true);
