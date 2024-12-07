@@ -26,6 +26,10 @@ if(global.currGame != 0) {
     if(array_length_1d(records) > global.currGame) {
         details = records[global.currGame];
     }
+
+    if(is_undefined(details) || details == global.EXTERNAL_TEXT_ERROR) {
+        details = "";
+    }
 }
 
 if(discordReady) {
