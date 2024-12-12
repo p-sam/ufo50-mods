@@ -5,6 +5,8 @@ UFO 50 Mods
 
 Miscellaneous patches for [UFO 50](https://50games.fun/)
 
+![screenshot](screenshot.png)
+
 # How to use
 
 You need a compatible [UndertaleModTool](https://github.com/UnderminersTeam/UndertaleModTool) version, either a build from the [underanalyzer](https://github.com/UnderminersTeam/UndertaleModTool/tree/underanalyzer) branch or from this [fork](https://github.com/p-sam/UndertaleModTool)
