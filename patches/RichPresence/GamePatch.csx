@@ -15,7 +15,7 @@ using System.IO;
 
 var ufo50Version = GetUFO50Version(Data);
 var scriptDir = Path.GetDirectoryName(GetCurrentScript());
-var dataDir = Path.GetDirectoryName(FilePath);
+var dataDir = GetCurrentUFO50Dir();
 var codeDir = Path.Join(scriptDir, "code");
 var extDllName = "NekoPresence_x64.dll";
 

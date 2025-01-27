@@ -19,4 +19,4 @@ await ApplyCompatibleCodePatch(ufo50Version, scriptDir, new[] {
     new PatchVersionRange("1.3.1.0", "1.6.2.4")
 }, true);
 
-ImportGraphics(Path.GetDirectoryName(GetCurrentScript()), true);
+ImportGraphics(scriptDir, true);

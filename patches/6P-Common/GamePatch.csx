@@ -20,7 +20,7 @@ await ApplyCompatibleCodePatch(ufo50Version, scriptDir, new[] {
     new PatchVersionRange("1.6.2.4")
 }, true);
 
-ImportGraphics(Path.GetDirectoryName(GetCurrentScript()), true);
+ImportGraphics(scriptDir, true);
 
 var sMenuP1P2 = Data.Sprites.ByName("sMenuP1P2");
 sMenuP1P2.OriginX = 64;
