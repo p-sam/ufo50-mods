@@ -1,0 +1,1 @@
+gmdinput_shutdown();
