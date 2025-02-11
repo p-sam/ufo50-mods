@@ -28,6 +28,7 @@ Locate and open the game `data.win` file with UndertaleModTool, then run the `Pa
 | Name | Description | Depends on | Public |
 | --- | --- | --- | --- |
 | 6P-BigBellRace | BigBellRace 2-6 players multiplayer | 6P-Common |✅|
+| DirectInput | Allow up to 16 gamepads using [gmdinput extension](https://github.com/p-sam/gmdinput) ||✅|
 | GMDebug | (debug) [Browser-based debugging interface](https://debug.gmcloud.org/) | GMJSONRPC |✅|
 | RichPresence | Discord Rich Presence ||✅|
 | Quickstart | Skips cracktro and "play forever" screen ||✅|
