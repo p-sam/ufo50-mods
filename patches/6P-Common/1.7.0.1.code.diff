@@ -117,7 +117,7 @@
              joyTiltH[p] = 0;
 --- original/gml_GlobalScript_scrMenuNavigation.gml
 +++ patched/gml_GlobalScript_scrMenuNavigation.gml
-@@ -196,28 +196,28 @@
+@@ -196,28 +196,26 @@
      {
          if (keyboard_check_pressed(vk_left) || keyboard_check_pressed(vk_right) || keyboard_check_pressed(vk_enter))
          {
@@ -134,7 +134,6 @@
 +                itemIndex[menuSel] += 1;
              }
 -            itemIndex[menuSel] = !itemIndex[menuSel];
-+            itemIndex[menuSel] = itemIndex[menuSel];
              return itemIndex[menuSel];
          }
          else if (pressLeft || pressRight || fire2pressed)
@@ -152,7 +151,6 @@
 +                itemIndex[menuSel] += 1;
              }
 -            itemIndex[menuSel] = !itemIndex[menuSel];
-+            itemIndex[menuSel] = itemIndex[menuSel];
              return itemIndex[menuSel];
          }
      }
@@ -240,29 +238,10 @@
      {
          for (var i = 0; i < global.NUM_INPUTS; i++)
          {
-@@ -34,13 +34,16 @@
-     if (padCount == 1)
-     {
-         global.joySlot[0] = slotList[0];
--        global.joySlot[1] = -1;
-+        for (var p = 1; p <= 5; p++)
-+        {
-+            global.joySlot[p] = -1;
-+        }
-         player = 0;
-         joySlot = global.joySlot[0];
-     }
-     else if (padCount >= 2)
-     {
--        for (var p = 0; p <= 1; p++)
-+        for (var p = 0; p <= 5; p++)
-         {
-             if (!gamepad_is_connected(global.joySlot[p]))
-             {
-@@ -54,8 +57,10 @@
-             }
+@@ -31,8 +31,10 @@
          }
      }
+     padCount = array_length(slotList);
 -    gamepadConnect[0] = gamepad_is_connected(global.joySlot[0]);
 -    gamepadConnect[1] = gamepad_is_connected(global.joySlot[1]);
 +    for (var p = 0; p <= 5; p++)
@@ -272,7 +251,16 @@
      drawMenu = true;
      scrMenuCreate(scrString("menu_head_joypad_config"), menuSel);
      OP_PLAYER = scrMenuItem(TYPE_PLAYER, scrString("menu_item_player"), currPlayer);
-@@ -259,24 +264,28 @@
+@@ -211,7 +213,7 @@
+                     }
+                 }
+                 joyMap[currPlayer][currInput] = currJoy;
+-                for (var p = 0; p <= 1; p++)
++                for (var p = 0; p <= 5; p++)
+                 {
+                     for (var i = 0; i < global.NUM_INPUTS; i++)
+                     {
+@@ -237,24 +239,28 @@
  {
      if (stateCounter == 0)
      {

@@ -1,6 +1,6 @@
 --- original/gml_GlobalScript_scr28_Checkpoints.gml
 +++ patched/gml_GlobalScript_scr28_Checkpoints.gml
-@@ -101,13 +101,29 @@
+@@ -99,13 +99,29 @@
                      {
                          dad.p1InGoal = true;
                      }
@@ -54,7 +54,7 @@
  gravity = 0.04;
 --- original/gml_Object_o28_Mas_Create_0.gml
 +++ patched/gml_Object_o28_Mas_Create_0.gml
-@@ -11,23 +11,58 @@
+@@ -9,23 +9,58 @@
  __view_set(e__VW.YView, 0, 224);
  winnerChar = 0;
  multip = false;
@@ -114,7 +114,7 @@
  cb = 0;
  rCount = -1;
  uCount = 0;
-@@ -50,6 +85,10 @@
+@@ -48,6 +83,10 @@
  goalPos = 0;
  p1InGoal = false;
  p2InGoal = false;
@@ -125,7 +125,7 @@
  dsRank = ds_grid_create(2, 6);
  dsScore = ds_grid_create(3, 6);
  dsScorePrev = ds_grid_create(2, 6);
-@@ -110,6 +149,14 @@
+@@ -108,6 +147,14 @@
  lapP2TimeStamp = 0;
  raceP1TimeStamp = 0;
  raceP2TimeStamp = 0;
@@ -142,7 +142,7 @@
  scrLoadGame();
 --- original/gml_Object_o28_Mas_Draw_0.gml
 +++ patched/gml_Object_o28_Mas_Draw_0.gml
-@@ -24,7 +24,51 @@
+@@ -22,7 +22,51 @@
          {
              draw_sprite(s28_Pointer, 3, xv + 104 + (40 * navi[1]), yv + 96);
          }
@@ -191,10 +191,10 @@
 +            }
 +        }
 +    }
-     for (i = 0; i < 6; i++)
+     for (var i = 0; i < 6; i++)
      {
-         ydo = 0;
-@@ -32,6 +76,22 @@
+         var ydo = 0;
+@@ -30,6 +74,22 @@
          {
              ydo = -8;
          }
@@ -217,7 +217,7 @@
          draw_sprite(s28_CharSelect, i, xv + 80 + (40 * i), yv + 128 + ydo);
      }
      exit;
-@@ -104,6 +164,22 @@
+@@ -102,6 +162,22 @@
              {
                  draw_sprite(s28_PSign, 1, xv + 184, yv + 91 + (16 * i));
              }
@@ -237,10 +237,10 @@
 +            {
 +                draw_sprite(s28_PSign, 5, xv + 184, yv + 91 + (16 * i));
 +            }
-             uScore = pointPos[5 - i];
+             var uScore = pointPos[5 - i];
              uScore = string_format(uScore, 2, 0);
              uScore = string_replace(uScore, " ", "0");
-@@ -139,6 +215,22 @@
+@@ -137,6 +213,22 @@
              else if (ds_grid_get(dsScore, 0, i) == playerSel[1])
              {
                  draw_sprite(s28_PSign, 1, xv + 184, yv + 91 + (16 * i));
@@ -265,12 +265,10 @@
              {
 --- /dev/null
 +++ patched/gml_Object_o28_Mas_Other_11.gml
-@@ -0,0 +1,222 @@
-+var p;
-+
+@@ -0,0 +1,220 @@
 +if (global.numPlayers >= 3)
 +{
-+    p = 2;
++    var p = 2;
 +    scrGetInput(p);
 +    if (naviSel[p] == 0)
 +    {
@@ -325,7 +323,7 @@
 +}
 +if (global.numPlayers >= 4)
 +{
-+    p = 3;
++    var p = 3;
 +    scrGetInput(p);
 +    if (naviSel[p] == 0)
 +    {
@@ -380,7 +378,7 @@
 +}
 +if (global.numPlayers >= 5)
 +{
-+    p = 4;
++    var p = 4;
 +    scrGetInput(p);
 +    if (naviSel[p] == 0)
 +    {
@@ -435,7 +433,7 @@
 +}
 +if (global.numPlayers >= 6)
 +{
-+    p = 5;
++    var p = 5;
 +    scrGetInput(p);
 +    if (naviSel[p] == 0)
 +    {
@@ -490,7 +488,7 @@
 +}
 --- original/gml_Object_o28_Mas_Step_0.gml
 +++ patched/gml_Object_o28_Mas_Step_0.gml
-@@ -9,11 +9,11 @@
+@@ -7,11 +7,11 @@
      scrGetInput(0);
      if (naviSel[0] == 0)
      {
@@ -498,13 +496,13 @@
 +        if (pressLeft && global.numPlayers < 6)
          {
              scrSfx(sfx_navi00, 40);
-             np = navi[0];
+             var np = navi[0];
 -            while (navi[0] == np || navi[0] == navi[1])
 +            while (np == navi[0] || navi[0] == navi[2] || navi[0] == navi[1] || navi[0] == navi[3] || navi[0] == navi[4] || navi[0] == navi[5])
              {
                  navi[0]--;
                  if (navi[0] < 0)
-@@ -22,11 +22,11 @@
+@@ -20,11 +20,11 @@
                  }
              }
          }
@@ -512,13 +510,13 @@
 +        else if (pressRight && global.numPlayers < 6)
          {
              scrSfx(sfx_navi00, 40);
-             np = navi[0];
+             var np = navi[0];
 -            while (navi[0] == np || navi[0] == navi[1])
 +            while (np == navi[0] || navi[0] == navi[2] || navi[0] == navi[1] || navi[0] == navi[3] || navi[0] == navi[4] || navi[0] == navi[5])
              {
                  navi[0]++;
                  if (navi[0] > 5)
-@@ -39,6 +39,7 @@
+@@ -37,6 +37,7 @@
          {
              if (naviSel[0] == 0)
              {
@@ -526,7 +524,7 @@
                  mute(sfx_deselect00);
                  scrSfx(sfx_select01, 45);
                  naviSel[0] = 1;
-@@ -49,6 +50,7 @@
+@@ -47,6 +48,7 @@
      {
          if (naviSel[0] == 1)
          {
@@ -534,7 +532,7 @@
              mute(sfx_select01);
              scrSfx(sfx_deselect00, 45);
              naviSel[0] = 0;
-@@ -69,13 +71,15 @@
+@@ -67,13 +69,15 @@
      }
      if (multip)
      {
@@ -546,13 +544,13 @@
 +            if (pressLeft && global.numPlayers < 6)
              {
                  scrSfx(sfx_navi00, 40);
-                 np = navi[1];
+                 var np = navi[1];
 -                while (navi[1] == np || navi[1] == navi[0])
 +                while (np == navi[1] || navi[1] == navi[2] || navi[1] == navi[0] || navi[1] == navi[3] || navi[1] == navi[4] || navi[1] == navi[5])
                  {
                      navi[1]--;
                      if (navi[1] < 0)
-@@ -84,11 +88,11 @@
+@@ -82,11 +86,11 @@
                      }
                  }
              }
@@ -560,13 +558,13 @@
 +            else if (pressRight && global.numPlayers < 6)
              {
                  scrSfx(sfx_navi00, 40);
-                 np = navi[1];
+                 var np = navi[1];
 -                while (navi[1] == np || navi[1] == navi[0])
 +                while (np == navi[1] || navi[1] == navi[2] || navi[1] == navi[0] || navi[1] == navi[3] || navi[1] == navi[4] || navi[1] == navi[5])
                  {
                      navi[1]++;
                      if (navi[1] > 5)
-@@ -101,6 +105,7 @@
+@@ -99,6 +103,7 @@
              {
                  if (naviSel[1] == 0)
                  {
@@ -574,7 +572,7 @@
                      mute(sfx_deselect00);
                      scrSfx(sfx_select01, 45);
                      naviSel[1] = 1;
-@@ -111,6 +116,7 @@
+@@ -109,6 +114,7 @@
          {
              if (naviSel[1] == 1)
              {
@@ -582,7 +580,7 @@
                  mute(sfx_select01);
                  scrSfx(sfx_deselect00, 45);
                  naviSel[1] = 0;
-@@ -120,10 +126,10 @@
+@@ -118,10 +124,10 @@
      }
      if (naviSel[0] == 1)
      {
@@ -595,7 +593,7 @@
                  t = 0;
                  playerSel[0] = navi[0];
                  playerSel[1] = navi[1];
-@@ -314,6 +320,34 @@
+@@ -312,6 +318,34 @@
                  lapP2TimeStamp = current_time;
                  raceP2TimeStamp = current_time;
              }
@@ -630,7 +628,7 @@
              else
              {
                  racer[rCount].human = false;
-@@ -684,7 +718,7 @@
+@@ -682,7 +716,7 @@
          scrExitToTitleScreen();
      }
  }
@@ -641,7 +639,7 @@
      if (fire2pressed)
 --- original/gml_Object_o28_UFO_Draw_0.gml
 +++ patched/gml_Object_o28_UFO_Draw_0.gml
-@@ -20,6 +20,10 @@
+@@ -18,6 +18,10 @@
          }
      }
  }
@@ -654,7 +652,7 @@
  {
 --- original/gml_Object_oTitleScreens_Other_12.gml
 +++ patched/gml_Object_oTitleScreens_Other_12.gml
-@@ -52,6 +52,15 @@
+@@ -50,6 +50,15 @@
          menuOption[0] = scrStringManual("title_1player", 0);
          menuOption[1] = scrStringManual("title_2players", 0);
      }
@@ -670,10 +668,11 @@
      else if (menuStyle == 3)
      {
          menuOption[0] = scrStringManual("title_game_start", 0);
-@@ -407,6 +434,26 @@
+@@ -404,6 +413,26 @@
+         if (menuStyle == 2 && menuSel == 1)
          {
              global.numPlayers = 2;
-         }
++        }
 +        if (menuStyle == 222 && menuSel == 1)
 +        {
 +            global.numPlayers = 2;
@@ -693,7 +692,6 @@
 +        if (menuStyle == 222 && menuSel == 5)
 +        {
 +            global.numPlayers = 6;
-+        }
+         }
          if (menuStyle == 4 && menuSel == 1)
          {
-             global.numPlayers = 2;
