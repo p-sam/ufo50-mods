@@ -18,7 +18,7 @@ var scriptDir = Path.GetDirectoryName(GetCurrentScript());
 await ApplyCompatibleCodePatch(ufo50Version, scriptDir, new[] {
     new PatchVersionRange("1.3.1.0", "1.5.1.0"),
     new PatchVersionRange("1.6.2.4"),
-    new PatchVersionRange("1.7.0.1")
+    new PatchVersionRange("1.7.0.1", "1.7.5.0")
 }, true);
 
 ImportGraphics(scriptDir, true);
