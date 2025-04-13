@@ -627,7 +627,7 @@
 +            }
              else
              {
-                 racer[rCount].human = false;
+                 self.racer[rCount].human = false;
 @@ -682,7 +716,7 @@
          scrExitToTitleScreen();
      }
