@@ -6,7 +6,7 @@
 [subrepo]
 	remote = git@github.com:p-sam/ufo50-patcher.git
 	branch = develop
-	commit = e7f0b57fb49309dc1fd4ac061eccfbf5b22f49a4
-	parent = 10027d3c807f111d5f633729da7f724dec4492f7
+	commit = 3c1b4ae10731f7e2df622af6c6413cb7f3b12d98
+	parent = b1e7963c2d4bc1eea5ae787c98e8c7b1028676cd
 	method = merge
 	cmdver = 0.4.9
