@@ -54,5 +54,5 @@ await ImportCodeDir(codeDir, true);
 File.Copy(Path.Combine(scriptDir, "res", extDllName), Path.Combine(dataDir, extDllName), true);
 
 await ApplyCompatibleCodePatch(ufo50Version, scriptDir, new[] {
-    new PatchVersionRange("1.3.1.0", "1.7.5.0")
+    new PatchVersionRange("1.3.1.0", "1.7.6.0")
 }, true);
