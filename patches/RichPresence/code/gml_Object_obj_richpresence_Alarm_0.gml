@@ -1,4 +1,4 @@
-alarm[0] = room_speed * 5;
+alarm[0] = room_speed;
 
 if (global.currGame != lastGameNum)
 {
@@ -15,7 +15,7 @@ var largeImageText = "";
 var smallImageKey = "";
 var smallImageText = "";
 
-if (global.currGame != 0)
+if (global.currGame != 0 && !inRecordOrPlayback())
 {
     state = global.mGameTitle[global.currGame];
     details = "playing";

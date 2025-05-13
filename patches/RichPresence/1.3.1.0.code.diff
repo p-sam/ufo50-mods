@@ -1,17 +1,16 @@
 --- original/gml_GlobalScript_scrGetRecords.gml
 +++ patched/gml_GlobalScript_scrGetRecords.gml
-@@ -35,6 +35,11 @@
+@@ -33,6 +33,10 @@
+         {
              _records[i] = scrString("bar_no_record");
          }
++        with (obj_richpresence)
++        {
++            records[i] = _records[i];
++        }
          _records[i] = string_copy(_records[i], 1, 16);
-+    }
-+    with (obj_richpresence)
-+    {
-+        array_copy(records, 0, _records, 0, array_length(_records));
-+        alarm[0] = 1;
      }
      return _records;
- }
 --- original/gml_GlobalScript_scrPlayGame.gml
 +++ patched/gml_GlobalScript_scrPlayGame.gml
 @@ -10,6 +10,10 @@
@@ -25,13 +24,16 @@
      global.currGame = arg0;
      global.currGameID = global.mGameID[arg0];
      global.solutionState = false;
---- original/gml_GlobalScript_scrSaveGame.gml
-+++ patched/gml_GlobalScript_scrSaveGame.gml
-@@ -36,6 +36,7 @@
-         }
-     }
-     var _makeBackup = false;
-+    scrGetRecords();
-     if (global.backupTimer >= global.BACKUP_MINIMUM_TIME && global.currFile >= 1 && global.currFile <= global.NUM_PROFILES_ACCESSIBLE)
+--- original/gml_GlobalScript_scrSetRecord.gml
++++ patched/gml_GlobalScript_scrSetRecord.gml
+@@ -8,5 +8,10 @@
      {
-         global.backupSaveNum[global.currFile]++;
+         scrWriteStringManual(0, "preGoldRecord" + string(global.currGameID), arg1);
+     }
++    var _gameWinVal = scrReadReal("gameWin" + string(global.currGameID), 0) >= global.GOLD_WIN;
++    with (obj_richpresence)
++    {
++        records[global.currGame] = scrGetRecord(global.currGameID, _gameWinVal);
++    }
+     return true;
+ }
