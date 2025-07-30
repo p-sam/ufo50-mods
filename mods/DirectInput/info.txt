@@ -1,0 +1,2 @@
+p-sam
+Allow up to 16 gamepads using gmdinput extension

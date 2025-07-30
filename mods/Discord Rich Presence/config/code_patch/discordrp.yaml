@@ -1,0 +1,27 @@
+gml_GlobalScript_scrGetRecords:
+  - type: findreplacetrim 
+    find: |-
+      _records[i] = string_copy(_records[i], 1, 16);
+    code: |-
+      with (obj_mod_discordrp) {
+        records[i] = _records[i];
+      }
+      _records[i] = string_copy(_records[i], 1, 16);
+gml_GlobalScript_scrPlayGame:
+  - type: findreplacetrim 
+    find: |-
+      global.currGame = arg0;
+    code: |-
+      with (obj_mod_discordrp) {
+        alarm[0] = 1;
+      }
+      global.currGame = arg0;
+gml_GlobalScript_scrSetRecord:
+  - type: findreplacetrim 
+    find: |-
+      return true;
+    code: |-
+      with (obj_mod_discordrp) {
+          records[global.currGame] = scrGetRecord(global.currGameID, scrReadReal("gameWin" + string(global.currGameID), 0) >= global.GOLD_WIN);
+      }
+      return true;
