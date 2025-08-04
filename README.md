@@ -21,7 +21,8 @@ You need [GMLoader](https://gamebanana.com/tools/20160) to install these mods
 | --- | --- |
 | Discord Rich Presence | Discord Rich Presence using [NekoPresence extension](https://github.com/nkrapivin/NekoPresence) |
 | DirectInput | Allow up to 16 gamepads using [gmdinput extension](https://github.com/p-sam/gmdinput) |
-| GMDebug | (debug) [Browser-based debugging interface](https://gmdebug.netlify.app/) |
+| GMDebug | (debug) [Browser-based debugging interface](https://gmdebug.netlify.app/) | |
+| QuickStart | Skips cracktro and "play forever" screen |
 
 # Contributing
 

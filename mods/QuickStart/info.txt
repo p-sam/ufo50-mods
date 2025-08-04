@@ -1,0 +1,2 @@
+p-sam
+Skips cracktro and "play forever" screen

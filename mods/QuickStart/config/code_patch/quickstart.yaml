@@ -1,0 +1,8 @@
+gml_GlobalScript_scrInit:
+  - type: findreplacetrim 
+    find: global.SKIP_INTRO = false;
+    code: global.SKIP_INTRO = true;
+gml_Object_oLibrary_Create_0:
+  - type: findreplacetrim 
+    find: state = STATE_LOGO;
+    code: state = STATE_INTRO;
