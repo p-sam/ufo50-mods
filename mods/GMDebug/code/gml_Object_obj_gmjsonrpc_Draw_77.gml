@@ -5,7 +5,7 @@ if(!initialized) {
 while(!ds_queue_empty(requestIdQueue)) {
     var reqId = ds_queue_dequeue(requestIdQueue);
     if(!ds_map_exists(requests, reqId)) {
-        show_debug_message("gmdebug: request gone");
+        show_debug_message("gmjsonrpc: request gone");
         return;
     }
 
@@ -27,7 +27,7 @@ while(!ds_queue_empty(requestIdQueue)) {
     }
 
     var methodName = ds_map_find_value(req, "method");
-    show_debug_message("gmdebug: request with id: "+reqId+" method: "+string(methodName));
+    show_debug_message("gmjsonrpc: request with id: "+reqId+" method: "+string(methodName));
 
     var globalMethodName = "gmjsonrpc_"+string(methodName);
     if(!is_string(methodName) || !variable_global_exists(globalMethodName)) {
