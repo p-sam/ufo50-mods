@@ -10,7 +10,7 @@ function gmjsonrpc_getVariables(params) {
         ds_map_add(result, "objectName", "");
     }
     else if(instance_exists(target)) {
-        ds_map_add(result, "objectName", object_get_name(target.object_index));
+        ds_map_add(result, "objectName", object_get_name(target));
     } else {
         ds_map_destroy(result);
         return [-1, "Instance not found"];
