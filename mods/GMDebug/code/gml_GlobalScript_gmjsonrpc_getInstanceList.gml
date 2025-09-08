@@ -4,16 +4,15 @@ function gmjsonrpc_getInstanceList() {
     for (var i=0; i< instance_count; i++) {
         var instance = ds_map_create();
         var instanceId = instance_id[i];
+        var objectList = ds_list_create();
+    
         with (instanceId) {
             // get ancestry
-            var objectList = ds_list_create();
             ds_list_add(objectList, object_get_name(object_index));
         
             for (var parent = object_get_parent(object_index); parent >= 0; parent = object_get_parent(parent)) {
                 ds_list_add(objectList, object_get_name(parent));	
             }
-        
-            ds_map_add_list(instance, "object", objectList);
         
             if(layer != -1) {
                 var layer_name = layer_get_name(layer);
@@ -26,7 +25,9 @@ function gmjsonrpc_getInstanceList() {
             }
             ds_map_add(instance, "depth", depth);
         }
-        ds_map_add_map(result, string(instanceId), instance);
+
+        ds_map_add_list(instance, "object", objectList);
+        ds_map_add_map(result, string_digits(string(instanceId)), instance);
     }
 
     return [ds_type_map, result];
