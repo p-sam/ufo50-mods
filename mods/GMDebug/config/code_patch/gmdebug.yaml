@@ -1,0 +1,8 @@
+gml_GlobalScript_scrActivateCoreObjects:
+  - type: findreplacetrim 
+    find: |-
+      instance_activate_object(oIdleTimer);
+    code: |-
+      instance_activate_object(oIdleTimer);
+      instance_activate_object(obj_gmjsonrpc);
+      instance_activate_object(obj_gmdebug);

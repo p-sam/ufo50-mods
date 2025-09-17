@@ -1,3 +1,10 @@
+gml_GlobalScript_scrActivateCoreObjects:
+  - type: findreplacetrim 
+    find: |-
+      instance_activate_object(oIdleTimer);
+    code: |-
+      instance_activate_object(oIdleTimer);
+      instance_activate_object(obj_mod_discordrp);
 gml_GlobalScript_scrGetRecords:
   - type: findreplacetrim 
     find: |-
