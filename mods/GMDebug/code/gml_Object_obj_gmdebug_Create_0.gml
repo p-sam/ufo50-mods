@@ -94,3 +94,5 @@ global.gmdebugBuiltinsArray = [
     "phy_fixed_rotation",
     "phy_bullet"
 ];
+
+debugViewCreated = false;

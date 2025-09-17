@@ -1,2 +1,2 @@
 p-sam
-Browser-based debugging interface - view at https://gmdebug.netlify.app/
+In-game overlay (Press F10) and browser-based debugging interface - view at https://gmdebug.netlify.app/
